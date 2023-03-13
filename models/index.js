@@ -1,4 +1,4 @@
-const errorHandler = require('./handlers/error')
+const errorHandler = require('../handlers/error')
 
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
