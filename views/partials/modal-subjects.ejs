@@ -1,0 +1,35 @@
+<% const done = new Set()                                                           %>
+<%      questions.forEach(q => {                                                    %>
+<%          q.subject.forEach(s => {                                                %>
+<%              if (s.includes('Classes de palavras')) s = 'Classes de palavras'    %>
+<%              if (s.includes('Concordância')) s = 'Concordância verbal e nominal' %>
+<%              if (s.includes('Regência')) s = 'Regência verbal e nominal'         %>
+<%              done.add(s)                                                         %>
+<%          })                                                                      %>
+<%      })                                                                          %>
+
+<style>
+    .crossed {
+        text-decoration: line-through;
+        text-decoration-color: #666;
+    }
+</style>
+<div class="modal fade" id="modalSubjects" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Conteúdo Programático</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body small">
+                <% test.subjects.forEach((subject)=> { %>
+                    <li class="<%= done.has(subject) ? 'crossed' : null %>">
+                        <%=subject%>
+                    </li>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+</div>

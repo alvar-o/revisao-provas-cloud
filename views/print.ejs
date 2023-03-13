@@ -1,0 +1,154 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%=test.code%>: Visualizar impressão</title>
+    <script src="https://kit.fontawesome.com/06bc3dc745.js" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="screen, print">
+    <link rel="stylesheet" href="https://cdn.quilljs.com/1.3.6/quill.bubble.css">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+        let levels, answers, solution, analysis, 
+            solutionQuill = new Quill(document.createElement("div")), 
+            analysisQuill = new Quill(document.createElement("div"));
+    </script>
+</head>
+<body>
+
+    <div class="noprint mb-3 pt-5">
+        <div class="container">
+            <div>
+                <span class="badge badge-success">
+                    <%=test.code%>
+                </span>
+                <h2>
+                    <%=test.description%>
+                </h2>
+            </div>
+            <a class="button back" href="javascript:history.back()">Voltar</a>
+            <%- include ('partials/modal-print-result')%>
+                <a class="button print" href="#" onclick="window.print('<%=test.code%>')">Imprimir</a>
+        </div>
+    </div>
+    <% questions.forEach((question) => { %>
+    <% let qNum = question.number.toLocaleString('pt-BR', {minimumIntegerDigits: 2}); %>
+    <div class="questionContainer" id="question-<%=qNum%>">
+        <p class="test-level"><%=test.code%> - Língua Portuguesa - <%=test.level%></p>
+        <table class="header">
+            <tr>
+                <th>Tempo</th>
+                <th colspan="5">Dificuldade</th>
+                <th>Item do programa</th>
+                <th colspan="5">Alternativa correta</th>
+                <th>Questão</th>
+            </tr>
+            <tr>
+                <td class="time"><%=question.time%></td>
+                <td class="diffLevel">MF</td>
+                <td class="diffLevel">F</td>
+                <td class="diffLevel">M</td>
+                <td class="diffLevel">D</td>
+                <td class="diffLevel">MD</td>
+                <td class="subject"><%=question.subject.join(' / ')%></td>
+                <td class="answer">A</td>
+                <td class="answer">B</td>
+                <td class="answer">C</td>
+                <td class="answer">D</td>
+                <td class="answer">E</td>
+                <td class="number"><%=qNum%></td>
+            </tr>
+        </table>
+
+        <div class="solution">
+            <h4 class="label">Resolução:</h4>
+            <div class="text"></div>
+        </div>
+        <div class="analysis">
+            <h4 class="label">Análise e Sugestões:</h4>
+            <div class="text"></div>
+        </div>
+        <div class="notouch">
+            <span>Sr(a) Revisor(a), não use este espaço</span>
+            <div>
+                <h5>ESPAÇO DESTINADO À BANCA ELABORADORA</h5>
+                <p>Parecer sobre os apontamentos da banca revisora para esta questão:</p>
+                <p class="ballot">
+                    <strong>Resolução</strong>
+                    <span class="check">concordo</span>
+                    <span class="check">concordo parcialmente</span>
+                    <span class="check">discordo</span>
+                </p>
+                <p class="ballot">
+                    <strong>Análise e Sugestões</strong>
+                    <span class="check">concordo</span>
+                    <span class="check">concordo parcialmente</span>
+                    <span class="check">discordo</span>
+                </p>
+                <p><strong>Em caso de discordância, justifique:</strong></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        const question<%=qNum%> = document.querySelector('#question-<%=qNum%>');
+        
+        levels = question<%=qNum%>.querySelectorAll('.diffLevel');
+        levels.forEach(level => {
+            if (level.innerText === '<%=question.diffLevel%>') {
+                level.classList.add('selected')
+            }
+        });
+
+        answers = question<%=qNum%>.querySelectorAll('.answer');
+        answers.forEach(answer => {
+            if (answer.innerText === '<%=question.answer%>') {
+                answer.classList.add('selected')
+            }
+        });
+
+        // Quill
+        solution = <%- JSON.stringify(question.solution) %>;
+        solutionQuill.setContents(JSON.parse(solution));
+        document.querySelector('#question-<%=qNum%> .solution .text').innerHTML = solutionQuill.root.innerHTML;
+
+        analysis = <%- JSON.stringify(question.analysis) %>;
+        analysisQuill.setContents(JSON.parse(analysis));
+        document.querySelector('#question-<%=qNum%> .analysis .text').innerHTML = analysisQuill.root.innerHTML;
+        
+    </script>
+    <% }); %>
+    <div class="questionContainer">
+        <p class="test-level"><%=test.code%> - Língua Portuguesa - <%=test.level%></p>
+        <div class="assessment-question">
+            <strong>1. Primeira impressão sobre a prova</strong>
+            <p><%=test.assessment.firstImpression%></p>
+        </div>
+        <div class="assessment-question">
+            <strong>2. Grau de dificuldade da prova</strong>
+            <p><%=test.assessment.difficultyLevel%></p>
+        </div>
+        <div class="assessment-question">
+            <strong>3. Adequação e abrangência da prova, conforme programa e finalidade</strong>
+            <p><%=test.assessment.adequacy%></p>
+        </div>
+        <div class="assessment-question">
+            <strong>4. Potencialidade avaliativa da prova</strong>
+            <p><%=test.assessment.potential%></p>
+        </div>
+        <div class="assessment-question">
+            <strong>5. Outras observações sobre a prova, no seu conjunto</strong>
+            <p><%=test.assessment.observations%></p>
+        </div>
+        <div class="assessment-question">
+            <strong>6. Conclusão final sobre a prova</strong>
+            <p><%=test.assessment.conclusion%></p>
+        </div>
+    </div>
+    <!-- <div class="noprint">
+        <a class="button back" href="/provas/<%=test.code%>">Voltar</a>
+        <a class="button print" href="#" onclick="window.electron.print('<%=test.code%>')">Imprimir</a>
+    </div> -->
+
+</body>
+</html>

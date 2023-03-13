@@ -1,0 +1,26 @@
+<div class="modal fade" 
+    id="modalChronometer" 
+    tabindex="-1" role="dialog" 
+    aria-labelledby="modalChronometerTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+
+                <div id="chronometer">
+                    <div class="values text-center display-3 mb-4">00:00</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="chronometer-buttons">
+                    <button class="playPauseButton btn btn-sm btn-success"><i class="fas fa-play"></i></button>
+                    <button class="stopButton btn btn-sm"><i class="fas fa-stop"></i></button>
+                    <button class="resetButton btn btn-sm"><i class="fas fa-history"></i></button>
+                </div>
+                <button type="button" class="btn  btn-sm btn-primary" id="registerTime" data-dismiss="modal">Salvar tempo</button>
+            </div>
+        </div>
+    </div>
+</div>

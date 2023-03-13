@@ -1,0 +1,21 @@
+<div class="collapse my-3 pt-3" id="assessment" style="border-top: 1px solid #f4f4f4;">
+    <% if (!!test.assessment.firstImpression) { %>
+    <small>
+        <strong>1. Primeira impressão sobre a prova</strong>
+        <p><%=test.assessment.firstImpression%></p>
+        <strong>2. Grau de dificuldade da prova</strong>
+        <p><%=test.assessment.difficultyLevel%></p>
+        <strong>3. Adequação e abrangência da prova, conforme programa e finalidade</strong>
+        <p><%=test.assessment.adequacy%></p>
+        <strong>4. Potencialidade avaliativa da prova</strong>
+        <p><%=test.assessment.potential%></p>
+        <strong>5. Outras observações sobre a prova, no seu conjunto</strong>
+        <p><%=test.assessment.observations%></p>
+        <strong>6. Conclusão final sobre a prova</strong>
+        <p><%=test.assessment.conclusion%></p>
+    </small>
+    <% } %>
+    <a href="#" data-toggle="modal" data-target="#modalAssessment" class="btn btn-sm btn-success">
+        <i class="fas fa-pen-alt"></i> Editar avaliação final
+    </a>
+</div>

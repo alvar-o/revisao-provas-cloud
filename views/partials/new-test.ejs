@@ -1,0 +1,78 @@
+<div class="modal fade" id="modalNewTest" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <%= (locals.test) ? 'Editar prova' : 'Nova prova' %>
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <% const action = (locals.test) ? `/${test.code}?_method=PUT` : null %>
+                <form action="/provas<%=action%>" method="POST" id="newTest">
+
+                    <div class="form-row">
+                        <div class="form-group col-md-5">
+                            <label for="code">Código</label>
+                            <input type="text" class="form-control" id="code" name="test[code]"
+                                    value="<%= (locals.test) ? test.code : null %>"">
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label for="level">Nível</label>
+                            <select class="form-control" name="test[level]" id="level">
+                                <option>Fundamental Completo</option>
+                                <option>Médio Completo</option>
+                                <option>Superior Completo</option>
+                            </select>
+                            <script>
+                                document.getElementById('level').value = "<%= (locals.test) ? test.level : null %>"
+                            </script>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="numQuestions">Questões</label>
+                            <input type="number" class="form-control" id="numQuestions" name="test[numQuestions]"
+                                    value="<%= (locals.test) ? test.numQuestions : null %>"
+                                    <%= (locals.test) ? 'readonly' : null %>>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Descrição</label>
+                        <input type="text" class="form-control" id="description" name="test[description]"
+                                value="<%= (locals.test) ? test.description : null %>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subjects">Conteúdos</label>
+                        <select multiple data-role="tagsinput" id="subjects" name="test[subjects]">
+                            <% if (locals.test?.subjects.length) { %>
+                                <% locals.test.subjects.forEach(subject => { %>
+                                    <option value="<%=subject%>">
+
+                                <% }) %>
+                            <% } else { %>
+                                <option value="Leitura e interpretação de textos">
+                                <option value="Sinônimos e antônimos">
+                                <option value="Sentido próprio e figurado das palavras">
+                                <option value="Pontuação">
+                                <option value="Classes de palavras">
+                                <option value="Concordância verbal e nominal">
+                                <option value="Regência verbal e nominal">
+                                <option value="Colocação pronominal">
+                                <option value="Crase">
+                            <% } %>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-secondary" data-dismiss="modal" aria-label="Fechar">Cancelar</a>
+                <button class="btn btn-primary float-right" type="submit" form="newTest">
+                    <%= (locals.test) ? 'Salvar' : 'Criar' %>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

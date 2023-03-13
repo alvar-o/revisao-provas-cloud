@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Search</title>
+    <script src="https://kit.fontawesome.com/06bc3dc745.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/stylesheets/app.css">
+    <link rel="stylesheet" href="https://cdn.quilljs.com/1.3.6/quill.bubble.css">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+        let levels, answers, solution, analysis,
+            solutionQuill = new Quill(document.createElement("div")),
+            analysisQuill = new Quill(document.createElement("div"));
+    </script>
+    <style>
+        .new {
+            font-size: 12px
+        }
+    
+        .search-card {
+            padding: 20px;
+            border: none
+        }
+    
+        .active {
+            background: #f6f7fb !important;
+            border-color: #f6f7fb !important;
+            color: #000 !important;
+            font-size: 12px
+        }
+    
+        .inputs {
+            position: relative
+        }
+
+        .inputs i {
+            position: absolute;
+            top: 14px;
+            left: 4px;
+            color: #b8b9bc
+        }
+    
+        .form-control {
+            text-indent: 15px;
+            border: none;
+            height: 45px;
+            border-radius: 0px;
+            border-bottom: 1px solid #eee
+        }
+    
+        .form-control:focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #eee;
+            outline: 0;
+            box-shadow: none;
+            border-bottom: 1px solid blue
+        }
+    
+        .form-control:focus {
+            color: blue
+        }
+    </style>
+</head>
+
+<body>
+    
+    <header class="main-title search">
+        <div class="container">
+            <div class="container pt-5 mb-3">
+                <div class="row d-flex justify-content-center">
+                    <div class="col">
+                        <form class="search-card"> 
+                            <div class="mt-3 inputs"> 
+                                <i class="fa fa-search"></i> 
+                                <% let search = (locals.q) ? q : 'Search'%>
+                                <input type="text" class="form-control " 
+                                    placeholder="Search" 
+                                    name="q"
+                                    value=<%= (locals.q) ? q : null %>>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <% if (locals.q && locals.questions)  { %>
+    <div class="container-lg mt-5">
+        <div class="row row-cols-1 row-cols-lg-2">
+        <% questions.forEach((question, i)=> { %>
+            <% let qNum=question.number.toLocaleString('pt-BR', {minimumIntegerDigits: 2}); %>
+            <div class="col mb-4">
+                <div class="card" id="item<%=i%>">
+                    <a class="card-header small text-reset text-decoration-none" 
+                        style="list-style:none;margin-bottom:0;column-count: 2;column-gap: 40px;"
+                        href="/provas/<%= question.parentTest.code %>/<%=qNum%>"
+                        target="_blank">
+                        <li style="column-span:all">
+                            <span class="font-weight-bold text-uppercase">Item do programa:</span>
+                            <%=question.subject.join(', ')%>
+                        </li>
+                        <li>
+                            <span class="font-weight-bold text-uppercase">Prova:</span>
+                            <%= question.parentTest.code %>
+                        </li>
+                        <li>
+                            <span class="font-weight-bold text-uppercase">Questão:</span>
+                            <%=qNum%>
+                        </li>
+                        <li>
+                            <span class="font-weight-bold text-uppercase">Tempo:</span>
+                            <%=question.time%>
+                        </li>
+                        <li>&nbsp;</li>
+                        <li>
+                            <span class="font-weight-bold text-uppercase">Dificuldade:</span>
+                            <%=question.diffLevel%>
+                        </li>
+                        <li>
+                            <span class="font-weight-bold text-uppercase">Alternativa:</span>
+                            <%=question.answer%>
+                        </li>
+                    </a>
+                    <div class="solution card-body">
+                        <strong class="small label text-uppercase font-weight-bold">Resolução:</strong>
+                        <div class="text"></div>
+                    </div>
+                    <div class="analysis card-body border-top">
+                        <strong class="small label text-uppercase font-weight-bold">Análise:</strong>
+                        <div class="text"></div>
+                    </div>
+                </div>
+                <script>
+                    // Quill
+                    solution = <%- JSON.stringify(question.solution) %>;
+                    solutionQuill.setContents(JSON.parse(solution));
+                    document.querySelector(' #item<%=i%> .solution .text').innerHTML = solutionQuill.root.innerHTML;
+
+                    analysis = <%- JSON.stringify(question.analysis) %>;
+                    analysisQuill.setContents(JSON.parse(analysis));
+                    document.querySelector('#item<%=i%> .analysis .text').innerHTML =
+                        analysisQuill.root.innerHTML;
+                </script>
+            </div>
+        <% })%>
+        </div>
+        
+    </div>
+    <% } else { %>
+
+    <div class="container-lg mt-5">
+        <div class="row row-cols-1 row-cols-lg-2">
+            Digite sua busca acima.
+        </div>
+    </div>
+    <% } %>
+
+    <div class="footer">
+        <div class="container d-flex">
+            <div class="flex-grow-1">
+                <a href="/provas" class="btn btn-secondary">
+                    <i class="fas fa-backward"></i>
+                    Voltar
+                </a>
+            </div>
+            
+            
+        </div>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
+</body>
+
+</html>

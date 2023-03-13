@@ -1,0 +1,59 @@
+<style>
+    #modalAssessment .form-control {
+        font-size: inherit;
+    }
+    #modalAssessment label {
+        font-weight: 500;
+    }
+</style>
+
+<div class="modal fade" id="modalAssessment" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Avaliação final</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body small">
+                <form id="assessmentForm" action="/provas/<%=test.code%>?_method=PUT" method="POST">
+                    <div class="form-group">
+                        <label for="firstImpression">1. Primeira impressão sobre a prova</label>
+                        <textarea name="assessment[firstImpression]" id="firstImpression" rows="3" class="form-control">
+                            <%_ %><%= test.assessment.firstImpression _%></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="difficultyLevel">2. Grau de dificuldade da prova</label>
+                        <textarea name="assessment[difficultyLevel]" id="difficultyLevel" rows="3" class="form-control">
+                            <%_ %><%= test.assessment.difficultyLevel _%></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="adequacy">3. Adequação e abrangência da prova, conforme programa e finalidade</label>
+                        <textarea name="assessment[adequacy]" id="adequacy" rows="3" class="form-control">
+                            <%_ %><%= test.assessment.adequacy _%></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="potential">4. Potencialidade avaliativa da prova</label>
+                        <textarea name="assessment[potential]" id="potential" rows="3" class="form-control">
+                            <%_ %><%= test.assessment.potential _%></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="observations">5. Outras observações sobre a prova, no seu conjunto</label>
+                        <textarea name="assessment[observations]" id="observations" rows="3" class="form-control">
+                            <%_ %><%= test.assessment.observations _%></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="conclusion">6. Conclusão final sobre a prova</label>
+                        <textarea name="assessment[conclusion]" id="conclusion" rows="3" class="form-control">
+                            <%_ %><%= test.assessment.conclusion _%></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" form="assessmentForm" class="btn btn-sm btn-primary">Salvar</button>
+                <!-- data-dismiss="modal" -->
+            </div>
+        </div>
+    </div>
+</div>

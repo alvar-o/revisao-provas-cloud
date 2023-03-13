@@ -1,0 +1,359 @@
+@media screen,
+print {
+
+    *,
+    td {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 11pt;
+    }
+
+    .questionContainer {
+        max-width: 21cm;
+        page-break-after: always;
+        position: relative;
+    }
+
+    p.test-level {
+        margin-top: 0;
+    }
+
+    .header {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 9.5pt;
+    }
+
+    .header th,
+    .header td {
+        border: 1pt solid #888;
+        padding: 3pt;
+        font-weight: 400;
+        text-align: center;
+    }
+
+    .header td:nth-child(1),
+    .header td:last-child {
+        width: 8%;
+        font-weight: bold;
+    }
+
+    .header td.diffLevel,
+    .header td.answer {
+        width: 4%;
+    }
+
+    .header td:nth-child(7) {
+        width: 44%;
+        font-weight: bold;
+    }
+
+
+    .header td.selected {
+        color: black;
+        font-weight: bold;
+        position: relative;
+        z-index: 10;
+    }
+
+    .header td.selected::after {
+        content: '';
+        display: block;
+        width: 0.9cm;
+        height: 0.9cm;
+        background: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-radius: 50%;
+        border: 3pt solid black;
+        z-index: -1;
+        transform: translate(-50%, -50%);
+    }
+
+    .solution,
+    .analysis {
+        margin: 1.5rem 0;
+        border: 0;
+        border-top: 1pt solid #888;
+    }
+
+    .solution {
+        min-height: 10cm;
+        max-height: 12cm;
+    }
+
+    .analysis {
+        min-height: 7cm;
+        max-height: 9cm
+    }
+
+    .text {
+        margin: 0 0.5cm;
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+    
+    .text :is(p, ol, ul) {
+        margin-block: 0.5em;
+    }
+
+    .text ol {
+        padding-left: 1.15em;
+    }
+
+    .text ul {
+        padding-left: 1em;
+    }
+
+    .text ol li,
+    .text ul li {
+        margin-bottom: 6pt;
+    }
+
+    h4.label {
+        margin-top: 5pt;
+    }
+
+    .questionContainer :is(h4, h5) {
+        font-size: unset;
+        /* margin-bottom: 1.33em; */
+        font-weight: bold;
+        line-height: unset;
+    }
+
+    .notouch {
+        font-size: 9.5pt;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 0.6cm;
+    }
+
+    .notouch>span {
+        padding: 2pt 5pt;
+        border: 1.6pt solid black;
+    }
+
+    .notouch>div {
+        padding: 5pt;
+        border: 1.6pt solid black;
+        margin: 5pt 0 0.3cm 0;
+        height: 4cm;
+    }
+
+    .notouch>div p {
+        margin: 0;
+    }
+
+    .notouch>div h5 {
+        text-align: center;
+        margin-top: 0;
+    }
+
+    .notouch div .ballot {
+        display: grid;
+        grid-template-columns: 25% 25% 25% 25%;
+
+    }
+
+    .notouch>div .check::before {
+        content: '□';
+        font-family: STIXGeneral-Regular;
+        font-size: 11pt;
+        margin-right: 3pt;
+    }
+
+    .assessment-question {
+        margin: 0.5cm;
+        min-height: 4cm;
+        border-bottom: 1pt solid #ccc;
+    }
+
+    .assessment-question:last-child {
+        border-bottom: none;
+    }
+
+    blockquote {
+    border-left: 0.1cm solid grey;
+    padding-left: 0.3cm;
+    margin-left: 0.5cm;
+    font-style: oblique;
+}
+
+
+}
+
+@media only print {
+    @page {
+        margin-top: 0.8cm;
+        margin-bottom: 0.8cm;
+        margin-left: 0.6cm;
+        margin-right: 0.6cm;
+    }
+
+    .noprint {
+        display: none;
+    }
+
+    .notouch {
+        padding: 0;
+    }
+
+    body {
+        -webkit-print-color-adjust: exact;
+    }
+
+    .questionContainer {
+        height: 27.83cm;
+    }
+
+}
+
+@media only screen {
+    body {
+        background-color: rgb(218, 220, 221);
+        background-image: repeating-linear-gradient(-45deg, lightgrey 0, lightgrey 2px, transparent 2px, transparent 5px);
+        background-attachment: fixed;
+        /* padding: 0.7em 0; */
+        margin: 0;
+
+    }
+
+    .questionContainer {
+        margin: 0 auto 20px auto;
+        padding: 0.8cm 0.6cm;
+        background-color: white;
+        box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+        height: 29.7cm;
+    }
+
+    .red {
+        background-color: firebrick;
+    }
+
+    .noprint {
+        display: block;
+        position: sticky;
+        top: 0;
+        padding: 30px 0 20px;
+        margin: 0 auto 20px;
+        background: #333333;
+        z-index: 20;
+        cursor: grab;
+        -webkit-app-region: drag;
+        color: #f7f7f7
+    }
+
+
+    .container {
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+        max-width: 21cm;
+    }
+
+    .noprint .button {
+        text-decoration: none;
+        color: #fff;
+        background-color: #6c757d;
+        display: inline-block;
+        font-weight: 400;
+        font-size: .875rem;
+        text-align: center;
+        vertical-align: middle;
+        user-select: none;
+        border: 1px solid #6c757d;
+        padding: .25rem .5rem;
+        line-height: 1.5;
+        border-radius: .2rem;
+        transition: all .15s;
+    }
+
+    .noprint .button.back:hover {
+        color: #fff;
+        background-color: #5a6268;
+        border-color: #545b62;
+    }
+
+    .noprint .button.back:focus {
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, .5)
+    }
+
+    .noprint .button.back::before {
+        content: '\f04a';
+        font-family: FontAwesome;
+        margin-right: 0.3rem;
+    }
+
+    .noprint .button.print {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+        float: right;
+    }
+
+    .noprint .button.print:hover {
+        color: #fff;
+        background-color: #0069d9;
+        border-color: #0062cc;
+    }
+
+    .noprint .button.button.print:focus {
+        box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, .5);
+    }
+
+    .noprint .button.print::before {
+        content: '\f02f';
+        font-family: FontAwesome;
+        margin-right: 0.3rem;
+    }
+
+    #modal-print-result {
+        position: fixed;
+        max-width: 75vw;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px;
+        border-radius: 4px;
+        color: white;
+        font-size: 12px;
+        text-align: center;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.4s linear;
+        z-index: 100;
+    }
+
+    #modal-print-result.pre-show {
+        display: block;
+        opacity: 0;
+    }
+
+    #modal-print-result.success {
+        background-color: seagreen;
+        opacity: 1;
+    }
+
+    #modal-print-result.error {
+        background-color: firebrick;
+        opacity: 1;
+    }
+
+
+    pre.pdfPath {
+        background-color: rgb(0 0 0 / 20%);
+        padding: 2px 4px;
+        border-radius: 2px;
+        display: inline-block;
+        margin: 0.4em 0 0 0;
+    }
+}

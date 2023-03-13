@@ -1,0 +1,11 @@
+MONGODB_ATLAS_CREDENTIALS
+node_modules
+.env
+*/.env
+.DS_Store
+*/.DS_Store
+*.code-workspace
+*.pem
+*.crt
+*.key
+.DS_Store

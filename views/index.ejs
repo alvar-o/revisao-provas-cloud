@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Revisão de Provas</title>
+    <script src="https://kit.fontawesome.com/06bc3dc745.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-typeahead/2.10.6/jquery.typeahead.min.css"
+        integrity="sha256-CU0/rbxVB3Eixd3bbIuJxHJLDnXriJS9cwp/BfcgpLw=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.quilljs.com/1.3.6/quill.bubble.css">
+    <link rel="stylesheet" href="/stylesheets/app.css">
+</head>
+
+<body>
+    <header class="main-title pt-5">
+        <div class="container">
+            <div class="d-flex flex-wrap">
+                <div class="flex-grow-1">
+                    <h1>Revisão de Provas Vunesp</h1>
+                </div>
+                <div class="align-self-center flex-grow-1 flex-shrink-1 d-flex justify-content-end align-items-center">
+                    <a href="/logout" class="dark-on-hover mx-3">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </a>
+                    <a href="/search" class="dark-on-hover mx-3">
+                        <i class="fa fa-search"></i>
+                    </a>
+                    <a href="#" data-toggle="modal" data-target="#modalNewTest" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>  Nova revisão
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </header>
+        
+    <% if (!!tests) { %>
+        <main>
+            <div class="container mb-5">
+                <div class="list-group list-group-flush overflow-scroll">
+                    <div class="list-group-item sticky">
+                        <div class="row small font-weight-bold">
+                            <span class="col-3">
+                                Código
+                            </span>
+                            <span class="col-5">
+                                Descrição
+                            </span>
+                            <span class="col-2">
+                                Nível
+                            </span>
+                            <span class="col-2 align-right">
+                                # Questões
+                            </span>
+                        </div>
+                    </div>
+
+                    <% tests.forEach((test)=> { %>
+                        <a href="/provas/<%=test.code%>" target="_blank" class="list-group-item list-group-item-action">
+                            <div class="row small">
+                                <span class="col-3">
+                                    <%=test.code%>
+                                </span>
+                                <span class="col-5 text-collapse">
+                                    <%=test.description%>
+                                </span>
+                                <span class="col-3 text-collapse">
+                                    <%=test.level%>
+                                </span>
+                                <span class="col-1 align-right">
+                                    <%=test.numQuestions%>
+                                </span>
+                            </div>
+                        </a>
+                        <% }); %>
+                </div>
+                <% } else { %>
+                    <p>Você ainda não criou nenhuma revisão.</p>
+                    <% } %>
+            </div>
+        </main>
+
+        <%- include ('partials/new-test')%>
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"
+        integrity="sha256-tQ3x4V2JW+L0ew/P3v2xzL46XDjEWUExFkCDY0Rflqc=" 
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

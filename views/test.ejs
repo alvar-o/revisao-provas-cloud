@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        <%=test.code%>
+    </title>
+    <script src="https://kit.fontawesome.com/06bc3dc745.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/stylesheets/app.css">
+</head>
+
+<body>
+    <header class="main-title pt-5">
+        <div class="container">
+            <div>
+                <span class="badge badge-success">
+                    <%=test.code%>
+                </span>
+                <h2>
+                    <span class="text-collapse" style="display:inline-block;max-width:calc(100% - 36px)">
+                        <%=test.description%>
+                    </span>
+                    <span class="mx-1 align-middle" style="display:inline-block;font-size:50%;transform:translateY(-0.55em)">
+                        <a href="#" class="dark-on-hover" data-toggle="modal" data-target="#modalNewTest">&nbsp;<i class="fas fa-pencil"></i>
+                        </a>
+                    </span>
+                    
+                </h2>
+            </div>
+            <span class="text-muted">
+                <%=test.level%>
+            </span>
+            <span class="text-muted ml-3">
+                <%=test.numQuestions%> questões
+            </span>
+            <span class="text-muted ml-3">
+                <a href="#" class="text-reset" data-toggle="modal" data-target="#modalSubjects">
+                    Conteúdo programático</a>
+            </span>
+            <span class="text-muted ml-3">
+                <a href="#" data-toggle="modal" data-target="#modalAssessment" 
+                    class="text-reset">Avaliação final</a>
+            </span>
+
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="list-group list-group-flush small q-table" style="margin-bottom: 6em;">
+            <span class="list-group-item sticky">
+                <div class="row font-weight-bold text-uppercase text-center q-table-head">
+                    <span class="col-1">#</span>
+                    <span class="col-2">Tempo</span>
+                    <span class="col-2">Dificuldade</span>
+                    <span class="col-5 text-left">Item do Programa</span>
+                    <span class="col-2">Alternativa</span>
+                </div>
+            </span>
+            <% questions.forEach((question)=> { %>
+                <% let numberTwoDigits=question.number.toLocaleString('pt-BR', {minimumIntegerDigits: 2}); %>
+                <a class="list-group-item list-group-item-action" href="/provas/<%=test.code%>/<%=numberTwoDigits%>">
+                    <div class="row  text-center q-table-row">
+                        <span class="col-1">
+                            <%=numberTwoDigits%>
+                        </span>
+                        <span class="col-2">
+                            <%=question.time%>
+                        </span>
+                        <span class="col-2">
+                            <%=question.diffLevel%>
+                        </span>
+                        <span class="col-5 text-left text-collapse">
+                            <%=question.subject.join(', ')%>
+                        </span>
+                        <span class="col-2">
+                            <%=question.answer%>
+                        </span>
+                    </div>
+                </a>
+            <% }); %>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="container d-flex">
+            <div class="flex-grow-1">
+                <a href="javascript:close()" class="btn btn-secondary">
+                    <i class="fas fa-backward"></i>
+                    Voltar
+                </a>
+            </div>
+            
+            <div class="flex-shrink-1 align-right">
+                <a href="/provas/<%=test.code%>/print" class="btn btn-primary" id="printButton">
+                    <i class="fas fa-print"></i>
+                    Imprimir revisão
+                </a>
+            </div>
+            
+            <% let last=questions.length -1; %>
+            <% if (questions[last].answer===undefined || test.assessment.conclusion===undefined) { %>
+            <script>
+                $('#printButton').addClass('btn-secondary disabled').removeClass('btn-primary');
+            </script>
+            <% } %>
+        </div>
+    </div>
+    
+    <%- include ('partials/new-test')%>
+    <%- include ('partials/modal-assessment')%>
+    <%- include ('partials/modal-subjects')%>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"
+        integrity="sha256-tQ3x4V2JW+L0ew/P3v2xzL46XDjEWUExFkCDY0Rflqc=" 
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
